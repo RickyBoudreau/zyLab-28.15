@@ -1,3 +1,7 @@
+//github link
+//team member 1
+//team member 2
+
 #include <iostream>
 #include "PlaylistNode.h"
 
