@@ -30,11 +30,14 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
 
       PlaylistNode* curr = headNode->GetNext();
+      int songNum = 1;
       while(curr != nullptr)
       {
+         cout << songNum << ".\n";
          curr->PrintPlaylistNode();
          cout << endl << endl; //might need more endl's for whitespace
-
+         
+         songNum++;
          curr = curr->GetNext();
       }
 
@@ -124,22 +127,21 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cout << "OUTPUT TOTAL TIME OF PLAYLIST (IN SECONDS)\nTotal time: ";
 
       PlaylistNode* curr = headNode->GetNext(); 
+      int timeSum = 0; //tracks total play time of playlist
       while(curr != nullptr) //total up play time
       {
-         if(curr->GetArtistName() == name)
-         {
-            cout << songNum << ".\n";
-
-            curr->PrintPlaylistNode();
-
-            cout << endl << endl; //might need more endl depending on whitespace
-         }
-
+         timeSum += curr->GetSongLenght();
+         
          //get next song
-         songNum++;
          curr = curr->GetNext();
       }
+
+      //print total playlist time
+      cout << timeSum << " seconds";
    }
+   
+
+   //----END OF IF/ELSE BRANCHES----
    
 }
 
