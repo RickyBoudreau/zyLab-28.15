@@ -1,6 +1,6 @@
 //github repo link: https://github.com/RickyBoudreau/zyLab-28.15.git
 //Ricky Boudreau
-//team member 2
+//davey bair
 
 #include <iostream>
 #include "PlaylistNode.h"
