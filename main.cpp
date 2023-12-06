@@ -116,7 +116,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
       cout << timeSum << " seconds";
    }
-   
+   return headNode;
 }
 
 int main() {
