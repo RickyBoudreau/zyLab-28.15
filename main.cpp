@@ -52,14 +52,14 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cout << "Enter song's name:\n";
       cin >> songName;
 
-      cout << "Enter artist's name:\n"
+      cout << "Enter artist's name:\n";
       cin >> artistName;
 
       cout << "Enter song's length (in seconds):\n";
       cin >> songLength;
 
    
-      curr->SetNext(new PlaylistNode(songID, songName, artistName, songLength));
+      curr->SetNext(new PlaylistNode(songID, songName, artistName, stoi(songLength)));
    }
 
    else if(option == 'd') {
@@ -72,7 +72,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
          if(curr->GetNext()->GetID() == songID) {
             cout << "\"" << curr->GetNext()->GetSongName() << "\" removed.";
 
-            curr->SetNext(curr->GetNext->GetNext);
+            curr->SetNext(curr->GetNext()->GetNext());
 
             return; 
          } else {
@@ -128,7 +128,7 @@ int main() {
 
    cout << endl;  
    
-   PlaylistNode headNode = new PlaylistNode();
+   PlaylistNode* headNode = new PlaylistNode();
    
    
    char userChoice = '0';
