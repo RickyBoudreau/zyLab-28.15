@@ -37,29 +37,30 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       }
 
       
-   }else if(option == 'a') {
-      PlaylistNode* curr = headNode;
-      while(curr != nullptr) {
-         curr = curr->GetNext();
-      }
-
+   }else if (option == 'a') {
       
-      string songID, songName, artistName, songLength;
+    PlaylistNode* curr = headNode;
+    while (curr->GetNext() != nullptr) {
+        curr = curr->GetNext();
+    }
 
-      cout << "ADD SONG\nEnter song's unique ID:\n";
-      cin >> songID;
+    string songID, songName, artistName, songLength;
 
-      cout << "Enter song's name:\n";
-      cin >> songName;
+    cout << "ADD SONG\nEnter song's unique ID:\n";
+    cin >> songID;
 
-      cout << "Enter artist's name:\n";
-      cin >> artistName;
+    cout << "Enter song's name:\n";
+    cin >> songName;
 
-      cout << "Enter song's length (in seconds):\n";
-      int songLength;
-      cin >> songLength;
-      curr->SetNext(new PlaylistNode(songID, songName, artistName, songLength));
-   }
+    cout << "Enter artist's name:\n";
+    cin >> artistName;
+
+    cout << "Enter song's length (in seconds):\n";
+    cin >> songLength;
+
+    curr->SetNext(new PlaylistNode(songID, songName, artistName, stoi(songLength)));
+}
+
 
    else if(option == 'd') {
       string songID;
@@ -108,7 +109,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       PlaylistNode* curr = headNode->GetNext(); 
       int timeSum = 0; 
       while(curr != nullptr) {
-         timeSum += curr->GetSongLengh();
+         timeSum += curr->GetSongLength();
          
          curr = curr->GetNext();
       }
