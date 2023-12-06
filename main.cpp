@@ -4,29 +4,24 @@
 
 #include <iostream>
 #include "PlaylistNode.h"
-
+using namespace std;
 //skip step number 9
 
 
-using namespace std;
+
 
 void PrintMenu(const string playlistTitle) {
-   /* Type your code here */
-
-   //step 3: prints options for user to interact with the program
+   
    cout << playlistTitle << " PLAYLIST MENU" << endl;
-   cout << "a - Add song\nd - Remove song\nc - Change positionof song\ns - Output songs by specific artist\nt - Output total time of playlist (in seconds)\no - Output full playlis\nq - Quit";
+   cout << "a - Add song\nd - Remove song\nc - Change position of song\ns - Output songs by specific artist\nt - Output total time of playlist (in seconds)\no - Output full playlist\nq - Quit" << endl;
    
 }
 
 PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headNode) {
-   /* Type your code here */
-   
 
    //step 4: make this function do the thing the user selected
    
-   if(option == 'o') //output full playlist
-   {
+   if(option == 'o') {
       cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
 
       PlaylistNode* curr = headNode->GetNext();
@@ -35,22 +30,20 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       {
          cout << songNum << ".\n";
          curr->PrintPlaylistNode();
-         cout << endl << endl; //might need more endl's for whitespace
+         cout << endl << endl; 
          
          songNum++;
          curr = curr->GetNext();
       }
 
       
-   }else if(option == 'a') //adds song to the end of the playlist
-   {
+   }else if(option == 'a') {
       PlaylistNode* curr = headNode;
-      while(curr != nullptr) //gets the last node in the list
-      {
+      while(curr != nullptr) {
          curr = curr->GetNext();
       }
 
-      //gets user input for info
+      
       string songID, songName, artistName, songLength;
 
       cout << "ADD SONG\nEnter song's unique ID:\n";
@@ -65,107 +58,81 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cout << "Enter song's length (in seconds):\n";
       cin >> songLength;
 
-      //add new PlaylistNode to the end of the list
+   
       curr->SetNext(new PlaylistNode(songID, songName, artistName, songLength));
    }
 
-   else if(option == 'd') //remove a song (given ID)
-   {
+   else if(option == 'd') {
       string songID;
       cout << "REMOVE SONG\nEnter song's unique ID:\n";
       cin >> songID;
 
-      //find and remove the song
       PlaylistNode* curr = headNode;
-      while(curr->GetNext() != nullptr)
-      {
-         if(curr->GetNext()->GetID() == songID) //IDs match - remove song
-         {
+      while(curr->GetNext() != nullptr) {
+         if(curr->GetNext()->GetID() == songID) {
             cout << "\"" << curr->GetNext()->GetSongName() << "\" removed.";
 
             curr->SetNext(curr->GetNext->GetNext);
 
-            return; //might need to be break instead
-         }else //IDs don't match - move to next song
-         {
+            return; 
+         } else {
             curr = curr->GetNext();
          }
       }
-
       cout << "Error: PlaylistNode for ID " << songID << " not found\n";
-      
    }
 
-   else if(option == 's')
-   {
+   else if(option == 's') {
       string name;
       cout << "OUTPUT SONGS BY A SPECIFIC ARTIST\nEnter artist's name:\n";
       cin >> name;
 
-      //find and print songs
       PlaylistNode* curr = headNode->GetNext(); 
-      int songNum = 1; //keeps track of what place the current song is at in the list
-      while(curr != nullptr)
-      {
-         if(curr->GetArtistName() == name)
-         {
+      int songNum = 1; 
+      while(curr != nullptr) {
+         if(curr->GetArtistName() == name) {
             cout << songNum << ".\n";
 
             curr->PrintPlaylistNode();
 
-            cout << endl << endl; //might need more endl depending on whitespace
+            cout << endl << endl; 
          }
-
-         //get next song
+         
          songNum++;
          curr = curr->GetNext();
       }
    }
 
-   else if(option == 't') //find and print total time of playlist
-   {
+   else if(option == 't') {
       cout << "OUTPUT TOTAL TIME OF PLAYLIST (IN SECONDS)\nTotal time: ";
 
       PlaylistNode* curr = headNode->GetNext(); 
-      int timeSum = 0; //tracks total play time of playlist
-      while(curr != nullptr) //total up play time
-      {
+      int timeSum = 0; 
+      while(curr != nullptr) {
          timeSum += curr->GetSongLenght();
          
-         //get next song
          curr = curr->GetNext();
       }
 
-      //print total playlist time
       cout << timeSum << " seconds";
    }
-   
-
-   //----END OF IF/ELSE BRANCHES----
    
 }
 
 int main() {
-   /* Type your code here */
 
    //step 2: records name of playlist from user
    string playlistName;
    cout << "Enter playlist's title:" << endl;
    cin >> playlistName;
 
-   cout << endl;  //might need to adjust how many endl appear here for correct whitespace
-
-   //create the head node for the linked list
-   //it is a dummy node and should be skipped over in function actions (do still pass it in to the call, but ignore it in the actual implementation)
+   cout << endl;  
+   
    PlaylistNode headNode = new PlaylistNode();
    
-   /*
-         ----LIKELY TO BE A WHILE LOOP AROUND THE REST OF THE CODE BELOW----
-   */
    
    char userChoice = '0';
-   while(userChoice != 'q') //loop over menu options and actions until user quits
-   {
+   while(userChoice != 'q') {
       //step 3: implement and call this function
       PrintMenu(playlistName);
 
