@@ -56,10 +56,9 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       cin >> artistName;
 
       cout << "Enter song's length (in seconds):\n";
+      int songLength;
       cin >> songLength;
-
-   
-      curr->SetNext(new PlaylistNode(songID, songName, artistName, stoi(songLength)));
+      curr->SetNext(new PlaylistNode(songID, songName, artistName, songLength));
    }
 
    else if(option == 'd') {
@@ -109,7 +108,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       PlaylistNode* curr = headNode->GetNext(); 
       int timeSum = 0; 
       while(curr != nullptr) {
-         timeSum += curr->GetSongLenght();
+         timeSum += curr->GetSongLengh();
          
          curr = curr->GetNext();
       }
@@ -143,6 +142,13 @@ int main() {
 
       ExecuteMenu(userChoice, playlistName, headNode);
    }
+
+   PlaylistNode* curr = headNode;
+    while (curr != nullptr) {
+        PlaylistNode* temp = curr;
+        curr = curr->GetNext();
+        delete temp;
+    }
    
    return 0;
 }
