@@ -22,15 +22,34 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
    //step 4: make this function do the thing the user selected
    
    if(option == 'o') {
-      cout << playlistTitle << " - OUTPUT FULL PLAYLIST" << endl;
+
+      if(headNode == nullptr)
+      {
+         cout << "\nPlaylist is empty" << endl << endl;
+
+         return headNode;
+      }
+      
+
+      cout << playlistTitle << " - OUTPUT FULL PLAYLIST";
 
       PlaylistNode* curr = headNode->GetNext();
+      
+      if(curr == nullptr)
+      {
+         cout << "\nPlaylist is empty" << endl << endl;
+         
+         return headNode;
+      }
+      
+      cout << endl;
+      
       int songNum = 1;
       while(curr != nullptr)
       {
          cout << songNum << ".\n";
          curr->PrintPlaylistNode();
-         cout << endl << endl; 
+         cout << endl; 
          
          songNum++;
          curr = curr->GetNext();
@@ -38,6 +57,8 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
       
    }else if (option == 'a') {
+
+      string dummyRead = ""; //used to read the newline characters which are messing w things (int reads dont eat them up like string reads)
       
     PlaylistNode* curr = headNode;
     while (curr->GetNext() != nullptr) {
@@ -48,17 +69,21 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
     cout << "ADD SONG\nEnter song's unique ID:\n";
     cin >> songID;
+    getline(cin, dummyRead);
 
     cout << "Enter song's name:\n";
-    cin >> songName;
+    getline(cin, songName);
 
     cout << "Enter artist's name:\n";
-    cin >> artistName;
+    getline(cin, artistName);
 
     cout << "Enter song's length (in seconds):\n";
     cin >> songLength;
+    getline(cin, dummyRead);
 
-    curr->SetNext(new PlaylistNode(songID, songName, artistName, stoi(songLength)));
+    curr->SetNext(new PlaylistNode(songID, songName, artistName, stoi(songLength))); //stoi????
+
+    cout << endl;
 }
 
 
@@ -70,7 +95,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
       PlaylistNode* curr = headNode;
       while(curr->GetNext() != nullptr) {
          if(curr->GetNext()->GetID() == songID) {
-            cout << "\"" << curr->GetNext()->GetSongName() << "\" removed.";
+            cout << "\"" << curr->GetNext()->GetSongName() << "\" removed.\n\n";
 
             curr->SetNext(curr->GetNext()->GetNext());
 
@@ -78,13 +103,15 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
             curr = curr->GetNext();
          }
       }
-      cout << "Error: PlaylistNode for ID " << songID << " not found\n";
+      //cout << "Error: PlaylistNode for ID " << songID << " not found\n"; //over-engineered (dont actually need for this program)
    }
 
    else if(option == 's') {
+      string dummyRead; //used for getting rid of newline char
       string name;
-      cout << "OUTPUT SONGS BY A SPECIFIC ARTIST\nEnter artist's name:\n";
-      cin >> name;
+      cout << "OUTPUT SONGS BY SPECIFIC ARTIST\nEnter artist's name:\n\n";
+      getline(cin, dummyRead);
+      getline(cin, name);
 
       PlaylistNode* curr = headNode->GetNext(); 
       int songNum = 1; 
@@ -94,7 +121,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
             curr->PrintPlaylistNode();
 
-            cout << endl << endl; 
+            cout << endl; 
          }
          
          songNum++;
@@ -113,7 +140,7 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
          curr = curr->GetNext();
       }
 
-      cout << timeSum << " seconds";
+      cout << timeSum << " seconds\n\n";
    }
    return headNode;
 }
@@ -123,7 +150,7 @@ int main() {
    //step 2: records name of playlist from user
    string playlistName;
    cout << "Enter playlist's title:" << endl;
-   cin >> playlistName;
+   getline(cin, playlistName);
 
    cout << endl;  
    
@@ -137,8 +164,11 @@ int main() {
 
       //step 5: show user the options for the menu (step 3) and record selection
    
-      cout << "\n\nChoose an option: ";
+      cout << "\nChoose an option:\n";
       cin >> userChoice;
+
+      
+
 
       ExecuteMenu(userChoice, playlistName, headNode);
    }
@@ -152,4 +182,3 @@ int main() {
    
    return 0;
 }
-
