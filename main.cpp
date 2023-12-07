@@ -74,7 +74,6 @@ PlaylistNode* ExecuteMenu(char option, string playlistTitle, PlaylistNode* headN
 
             curr->SetNext(curr->GetNext()->GetNext());
 
-            return; 
          } else {
             curr = curr->GetNext();
          }
